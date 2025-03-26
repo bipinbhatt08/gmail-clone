@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/a9ca28c3df.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        :root{
+            --text-grey:#444746;
+        }
+        body{
+            font-family: 'roboto';
+        }
+        .container{
+            height: 100vh;
+            display: grid;
+            align-content:flex-start;
+            grid-template-columns: 1fr 4fr;
+            background-image: url("https://www.gstatic.com/mail/themes/featured/f41.jpg=w1280-h855-e365-k-no-nd");
+            padding: 15px 15px 0px 0;
+        }
+        .logo-and-menu{
+            display: flex;
+            justify-content: start;
+            gap: 20px;
+            align-items: center;
+            padding-left: 20px;
+        
+        }
+        .ham{
+            color: var(--text-grey);
+        }
+        .logo-container {
+            width: 45%;
+        }
+        .logo-container img{
+            width: 100%;
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            align-items: center;
+        }
+        i:not(button i){
+            color: white;
+        }
+        .search{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 1px solid white;
+            flex: 2;
+            border-radius: 20px;
+            padding: 10px 15px;
+
+        }
+        .other-icons{
+            display: flex;
+            justify-content: end;
+            gap: 10px;
+            align-items: center;
+        }
+        input{
+            display: block;
+            flex: 2;
+            height: 100%;
+            font-size: 16px;
+            background:inherit;
+            outline: none;
+            border: none;
+            color: white;
+        }
+        input::-webkit-input-placeholder{
+            color: white;
+        }
+        .search:focus-within{
+            background: white;
+        }
+        .search:focus-within input,.search:focus-within i{
+            color: var(--text-grey)
+        }
+        .search:focus-within input::-webkit-input-placeholder{
+            color: gray;
+        }
+
+        button{
+            color: white;
+        }
+        .avatar{
+            height: 30px;
+            width: 30px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        .avatar img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .other-icons button{
+           height: 30px;
+           width: 30px;
+           border-radius: 50%;
+           font-size: 18px;
+           border: none;
+           padding: 3px;
+           background:transparent;
+           cursor: pointer;
+        }
+        .other-icons button:hover{
+            background: #d0cfcf22;
+        }
+        button.compose{
+            border: none;
+            color: rgb(122, 121, 121);
+            padding: 20px 15px;
+            width: 55%;
+            margin-top: 20px;
+            margin-left: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            font-weight: 500;
+            
+        }
+        ul{
+            margin-top: 20px;
+            height: 72vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+        ul::-webkit-scrollbar{
+            width: 8px;
+        }
+        ul::-webkit-scrollbar-track {
+            background-color:inherit
+        }
+
+        ul::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.165);
+        }
+        li{
+            background: transparent;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            width: 95%;
+            border-radius: 0px 20px 20px 0px;
+            /* list-style-type: none; */
+        }
+        li:hover{
+            background: rgba(255, 255, 255, 0.165);
+        }
+        li[class*="active"]{
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.209);
+
+        }
+        li[class*='hasCount']{
+            background: green;
+        }
+
+
+        .mail-container{
+            background-color: #ffffffd7;
+            margin-top: 20px;
+            padding:  15px 0px;
+            border-radius: 10px;
+
+        }
+
+        .mail-container-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-grey);
+            padding: 0px 15px;
+        }
+        .mail-container-header i{
+            color:var(--text-grey)
+        }
+        .mail-container-header>div:first-child{
+            flex:1;
+            display: flex;
+            justify-content: start;
+            gap: 30px;
+        }
+        .mail-container-header>div:first-child>div{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        .mail-container-header>div:last-child{
+            flex:1;
+            display: flex;
+            justify-content: end;
+            gap: 30px;
+    
+        }
+
+        .mail-container-content{
+            margin-top: 20px;
+            height: 73vh;
+            overflow-y: auto;scroll-behavior: smooth;
+        }
+        .mail-container-content::-webkit-scrollbar{
+            width: 10px;
+        }
+        .mail-container-content::-webkit-scrollbar-track {
+            background-color:inherit
+        }
+
+        .mail-container-content::-webkit-scrollbar-thumb {
+        background-color: rgba(26, 25, 25, 0.676);
+        }
+        .category-tabs{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            
+        }
+        .tab{
+            display: flex;
+            justify-content: start;
+            gap: 20px;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+        
+        }
+        .tab:hover{
+            background: rgba(135, 135, 135, 0.083);
+        }
+        .tab i {
+             color: var(--text-grey);
+        }
+        .tab.selected-tab{
+            border: 1px solid rgb(180, 179, 179);
+            border-bottom: 5px solid blue;
+            color: blue;
+
+            background: rgba(135, 135, 135, 0.083);
+        }
+        .tab.selected-tab i{
+            color: blue;
+        }
+
+        p span{
+            display: inline-block;
+            border-radius: 20px !important;
+            padding:0px 5px;
+            font-size: small;
+        }
+        .category-tabs .tab:nth-child(2) span{
+            background:green ;
+            color: white;
+        }
+        .category-tabs .tab:nth-child(3) span{
+            background:blue ;
+            color: white;
+        }
+        .category-tabs .tab:nth-child(4) span{
+            background:orange ;
+            color: white;
+        }
+        
+        .mail{
+            display: grid;
+            grid-template-columns: 2fr 4fr 1fr;
+            padding: 10px 15px;
+            border-bottom: 1px solid;
+            background: #c8c7c768;
+            cursor: pointer;
+        }
+        .mail:hover{
+            box-shadow: 0px 1px 3px 0px ;
+        }
+        .mail > div:first-child{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 10px;
+        }
+        .mail>div:nth-child(2){
+
+            text-align:start ;
+        }
+        .mail>div:nth-child(3){
+
+            text-align:end ;
+        }
+        .mail-from{
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .date{
+            font-size: small;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo-and-menu">
+               <div class="ham">
+                <i class="fa-solid fa-bars"></i>
+               </div>
+                <div class="logo-container">
+                    <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_dark_2x_r5.png" alt="">
+                </div>
+            </div>
+            <button class="compose">
+                <i class="fa-solid fa-pen"></i>  Compose
+            </button>
+            <ul>
+                <li class=" active has-count"><i class="fa-solid fa-inbox "></i>inbox</li>
+                <li class=" "><i class="fa-solid fa-star"></i>Starred</li>
+                <li class=" "><i class="fa-solid fa-clock"></i>Snoozed</li>
+                <li class=" "><i class="fa-solid fa-paper-plane"></i>Sent</li>
+                <li class="has-count "><i class="fa-solid fa-file"></i>Drafts</li>
+                <li class=" "><i class="fa-solid fa-angle-up"></i>Less</li>
+                <li class=" "><i class="fa-solid fa-right-long"></i>Important</li>
+                <li class=" "><i class="fa-solid fa-message"></i>Chat</li>
+                <li><i class="fa-solid fa-calendar-check"></i>Scheduled</li>
+                <li><i class="fa-solid fa-envelopes-bulk"></i>All Mail</li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+                <li class="has-count"><i class="fa-solid fa-circle-exclamation"></i>Spam <p>80</p></li>
+
+            </ul>
+        </div>
+        <div class="main">
+            <div class="header">
+                <div class="search">
+                    <div class="search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input type="text" placeholder="Search mail">
+                    <div class="filter-icon">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                </div>
+                <div class="other-icons">
+                    <button><i class="fa-solid fa-question "></i></button>
+                    <button><i class="fa-solid fa-gear"></i></button>
+                    <button><i class="fa-solid fa-fan"></i></button>
+                    <button><i class="fa-solid fa-bars"></i></button>
+                    <div class="avatar"><img src="./ok.jpg" alt="avatar"></div>
+
+                </div>
+            </div>
+            <div class="mail-container">
+                <div class="mail-container-header">
+                    <div>
+                        <div>
+                            <input type="checkbox" name="" id="">
+                            <i class="fa-solid fa-sort-down"></i>
+                        </div>
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                    <div>
+                        <p class="page-count">
+                            101-150 of 499
+                        </p>
+                        <i class="fa-solid fa-angle-left"></i>
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </div>
+                </div>
+                <div class="mail-container-content">
+                    <div class="category-tabs">
+                        <div class="tab selected-tab">
+                            <i class="fa-solid fa-inbox "></i>
+                            Primary
+                        </div>
+                        <div class="tab ">
+                            <i class="fa-solid fa-tag"></i>
+                            <div>
+                                <p>Promotion <span class="count ">14 new</span></p>
+                                <p class="description">
+                                    <small>Google Gemini - Bipin it's bee...</small>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="tab">
+                            <i class="fa-solid fa-user-group"></i>
+                            <div>
+                                <p>Social <span class="count">10 new</span></p>
+                                <p class="description">
+                                    <small>YouTube - Deno James...</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <i class="fa-solid fa-info"></i>
+                            <div>
+                                <p>Updates <span class="count">19+ new</span></p>
+                                <p class="description">
+                                    <small>WPMU DEV - "Have you tri..</small>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mails">
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">LinkedIn</p>
+                            </div>
+                            <div>
+                                <p class=""><b>21 people viewed your profile </b><small>- You're getting noticed</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 21
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Twitter</p>
+                            </div>
+                            <div>
+                                <p class=""><b>5 new followers this week </b><small>- Your profile is growing</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 22
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">GitHub</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New pull request opened </b><small>- Check the latest update</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 20
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Facebook</p>
+                            </div>
+                            <div>
+                                <p class=""><b>John Doe mentioned you in a comment </b><small>- View the discussion</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 19
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Amazon</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Your order has shipped </b><small>- Track your package</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 18
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">YouTube</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New video from your subscription </b><small>- Watch now</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 17
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Netflix</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New movies added this week </b><small>- Explore now</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 16
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">PayPal</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Payment received successfully </b><small>- View transaction</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 15
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Spotify</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Your weekly playlist is ready </b><small>- Discover new music</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 14
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Google</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Security alert detected </b><small>- Check your account</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 13
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Instagram</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Your post got 100+ likes </b><small>- See who liked it</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 12
+                            </div>
+                        </div>
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Microsoft</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New login detected </b><small>- Verify your activity</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 11
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Reddit</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Your comment got upvoted </b><small>- Check your karma</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 10
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">TikTok</p>
+                            </div>
+                            <div>
+                                <p class=""><b>3 new followers today </b><small>- Your content is trending</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 9
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Dropbox</p>
+                            </div>
+                            <div>
+                                <p class=""><b>Your file has been shared </b><small>- View access details</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 8
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Pinterest</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New board suggestions for you </b><small>- Get inspired</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 7
+                            </div>
+                        </div>
+                        
+                        <div class="mail">
+                            <div>
+                                <div><input type="checkbox" name="" id=""></div>
+                                <div><i class="fa-solid fa-star"></i></div>
+                                <div><i class="fa-solid fa-square-caret-right"></i></div>
+                                <p class="mail-from">Quora</p>
+                            </div>
+                            <div>
+                                <p class=""><b>New answers to your question </b><small>- See what people are saying</small></p>
+                            </div>
+                            <div class="date">
+                                Mar 6
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
